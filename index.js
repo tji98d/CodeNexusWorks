@@ -1,15 +1,25 @@
-function removeNthFromEnd(head, n) {
-  const dummy = new ListNode(0);
-  dummy.next = head;
-  let first = dummy;
-  let second = dummy;
-  for (let i = 0; i <= n; i++) {
-    first = first.next;
+function trap(height) {
+  let totalWater = 0;
+  let left = 0;
+  let right = height.length - 1;
+  let maxLeft = 0;
+  let maxRight = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= maxLeft) {
+        maxLeft = height[left];
+      } else {
+        totalWater += maxLeft - height[left];
+      }
+      left++;
+    } else {
+      if (height[right] >= maxRight) {
+        maxRight = height[right];
+      } else {
+        totalWater += maxRight - height[right];
+      }
+      right--;
+    }
   }
-  while (first !== null) {
-    first = first.next;
-    second = second.next;
-  }
-  second.next = second.next.next;
-  return dummy.next;
+  return totalWater;
 }
