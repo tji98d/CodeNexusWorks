@@ -1,15 +1,19 @@
-function subsetsWithDup(nums) {
-  const result = [];
-  nums.sort((a, b) => a - b);
-  backtrack(0, []);
-  return result;
-  function backtrack(start, current) {
-    result.push([...current]);
-    for (let i = start; i < nums.length; i++) {
-      if (i > start && nums[i] === nums[i - 1]) continue;
-      current.push(nums[i]);
-      backtrack(i + 1, current);
-      current.pop();
+const quickSortRandomPivot = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const pivotIndex = Math.floor(Math.random() * arr.length);
+  const pivot = arr[pivotIndex];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i !== pivotIndex) {
+      if (arr[i] <= pivot) {
+        left.push(arr[i]);
+      } else {
+        right.push(arr[i]);
+      }
     }
   }
-}
+  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
+};
