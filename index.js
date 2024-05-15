@@ -1,19 +1,15 @@
-const quickSortRandomPivot = (arr) => {
-  if (arr.length <= 1) {
-    return arr;
-  }
-  const pivotIndex = Math.floor(Math.random() * arr.length);
-  const pivot = arr[pivotIndex];
-  const left = [];
-  const right = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (i !== pivotIndex) {
-      if (arr[i] <= pivot) {
-        left.push(arr[i]);
-      } else {
-        right.push(arr[i]);
-      }
+function merge(intervals) {
+  intervals.sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const interval of intervals) {
+    if (!merged.length || merged[merged.length - 1][1] < interval[0]) {
+      merged.push(interval);
+    } else {
+      merged[merged.length - 1][1] = Math.max(
+        merged[merged.length - 1][1],
+        interval[1],
+      );
     }
   }
-  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
-};
+  return merged;
+}
